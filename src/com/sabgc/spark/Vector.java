@@ -29,6 +29,14 @@ public class Vector extends Array {
 		return new Vector(vect[0] / norm, vect[1] / norm);
 	}
 	
+	public double getX() {
+		return this.getArray()[0];
+	}
+	
+	public double getY() {
+		return this.getArray()[1];
+	}
+	
 	public double getNorm() {
 		return norm;
 	}
