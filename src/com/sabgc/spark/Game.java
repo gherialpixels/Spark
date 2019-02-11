@@ -22,7 +22,7 @@ public class Game extends JPanel {
 	private Charge[] qs = {q0, q1};
 	*/
 	
-	private ChargeDistribution sigma = ChargeDistribution.getRandomChargeDistribution(0.0001);
+	private ChargeDistribution sigma = ChargeDistribution.getRandomChargeDistribution(0.00001);
 	
 	private int frames = 0;
 	private double now = 0;

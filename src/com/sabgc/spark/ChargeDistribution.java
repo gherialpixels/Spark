@@ -36,14 +36,26 @@ public class ChargeDistribution {
 	public static ChargeDistribution getRandomChargeDistribution(double chargeDensity) {
 		int x, y;
 		int width = 10;
-		int length = 10;
+		int length = 20;
 		Surface[] S = new Surface[length];
 		Random rand = new Random();
 		
-		for (int i = 0; i < length; i++) {
-			x = rand.nextInt(400);
-			y = rand.nextInt(400);
-			S[i] = new Surface(x, y, width);
+		x = rand.nextInt(400);
+		y = rand.nextInt(400);
+		
+		int deltaX = rand.nextInt(10);
+		int deltaY = rand.nextInt(10);
+		S[0] = new Surface(x, y, width);
+		
+		for (int i = 1; i < length; i++) {
+			if (x + deltaX >= 400 || y + deltaY >= 360) {
+				deltaX *= -1;
+				deltaY *= -1;
+			}
+			
+			S[i] = new Surface(x + deltaX, y + deltaY, width);
+			x += deltaX;
+			y += deltaY;
 		}
 		
 		return new ChargeDistribution(S, chargeDensity);
