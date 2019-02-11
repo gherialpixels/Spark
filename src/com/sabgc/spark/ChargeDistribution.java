@@ -48,6 +48,8 @@ public class ChargeDistribution {
 		S[0] = new Surface(x, y, width);
 		
 		for (int i = 1; i < length; i++) {
+			deltaX = rand.nextInt(10);
+			deltaY = rand.nextInt(10);
 			if (x + deltaX >= 400 || y + deltaY >= 360) {
 				deltaX *= -1;
 				deltaY *= -1;
