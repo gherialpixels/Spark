@@ -32,7 +32,7 @@ public class Charge {
 		b = rand.nextInt(256);
 	}
 	
-	public void applyForce(Charge[] q) {
+	public void applyForcePoint(Charge[] q) {
 		Vector F = new Vector(0, 0);
 		acc = Vector.add(acc, Vector.mult(-1, acc));
 		if (q.length != 0) {
@@ -44,7 +44,12 @@ public class Charge {
 		acc = Vector.mult((1/mass), F);
 	}
 	
-	public void update(double width, double height, Charge[] q) {
+	public void applyForceDistribution(ChargeDistribution sigma) {
+		Vector F = Force.getElectroStaticForceDistribution(this, sigma);
+		acc = Vector.mult(1/mass, F);
+	}
+	
+	public void update(double width, double height) {
 		if (moving) {
 			vel = Vector.add(vel, acc);
 			pos = Vector.add(pos, vel);

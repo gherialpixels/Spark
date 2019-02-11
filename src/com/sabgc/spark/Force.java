@@ -12,6 +12,11 @@ public class Force {
 		return F;
 	}
 	
+	public static Vector getElectroStaticForceDistribution(Charge Q, ChargeDistribution sigma) {
+		Vector F = Vector.mult(Q.getCharge(), sigma.getElectricField(Q));
+		return F;
+	}
+	
 	public static void wallCollision(Charge q1, double width, double height) {
 		double[] vel = q1.getVel().getArray();
 		double[] pos = q1.getPos().getArray();
