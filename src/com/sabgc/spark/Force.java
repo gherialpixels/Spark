@@ -3,7 +3,7 @@ package com.sabgc.spark;
 public class Force {
 	
 	// static final double EPSILON_CONST = 1;
-	static final double EPSILON_CONST = 8988000000.00;
+	public static final double EPSILON_CONST = 8988000000.00;
 	
 	public static Vector getElectroStaticForcePoint(Charge q1, Charge q2) {
 		Vector r = Vector.add(q1.getPos(), Vector.mult(-1, q2.getPos()));

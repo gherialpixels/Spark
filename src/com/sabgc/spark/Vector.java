@@ -25,7 +25,7 @@ public class Vector extends Array {
 	}
 	
 	public Vector getUnitVector() {
-		double[] vect = this.getArray();
+		double[] vect = getArray();
 		return new Vector(vect[0] / norm, vect[1] / norm);
 	}
 	

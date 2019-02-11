@@ -16,8 +16,8 @@ public class Game extends JPanel {
 	private int radius = 15;
 	
 	private Charge Q = new Charge(100000, 0.25, 100, 100, 4, -4, radius, true);
-	private Charge q0 = new Charge(10, 0.125, 385, 15, 0, 0, radius, false);
-	private Charge q1 = new Charge(10, 0.125, 15, 365, 0, 0, radius, false);
+	private Charge q0 = new Charge(10, 0.25, 385, 15, 0, 0, radius, false);
+	private Charge q1 = new Charge(10, 0.25, 15, 365, 0, 0, radius, false);
 	private Charge[] qs = {q0, q1};
 	
 	private int frames = 0;
