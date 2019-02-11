@@ -1,6 +1,7 @@
 package com.sabgc.spark;
 
 import java.awt.*;
+import java.util.Random;
 
 public class ChargeDistribution {
 
@@ -30,6 +31,22 @@ public class ChargeDistribution {
 		}
 		
 		return Vector.mult(Force.EPSILON_CONST, E);
+	}
+	
+	public static ChargeDistribution getRandomChargeDistribution(double chargeDensity) {
+		int x, y;
+		int width = 10;
+		int length = 10;
+		Surface[] S = new Surface[length];
+		Random rand = new Random();
+		
+		for (int i = 0; i < length; i++) {
+			x = rand.nextInt(400);
+			y = rand.nextInt(400);
+			S[i] = new Surface(x, y, width);
+		}
+		
+		return new ChargeDistribution(S, chargeDensity);
 	}
 	
 	public void paint(Graphics g) {
