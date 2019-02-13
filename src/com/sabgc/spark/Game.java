@@ -22,7 +22,7 @@ public class Game extends JPanel {
 	private Charge[] qs = {q0, q1};
 	*/
 	
-	private ChargeDistribution sigma = ChargeDistribution.getRandomChargeDistribution(0.00001);
+	private ChargeDistribution sigma = ChargeDistribution.getRandomChargeDistribution(-0.00001);
 	
 	private int frames = 0;
 	private double now = 0;
@@ -38,7 +38,6 @@ public class Game extends JPanel {
 					
 					// Q.applyForcePoint(qs);
 					Q.applyForceDistribution(sigma);
-					
 					Q.update(width, height);
 					
 					repaint();
@@ -64,7 +63,7 @@ public class Game extends JPanel {
 		super.paintComponent(g);
 		Q.paint(g);
 		sigma.paint(g);
-		sigma.paintFieldLines(g);
+		// sigma.paintFieldLines(g);
 		/*
 		q0.paint(g);
 		q1.paint(g);
