@@ -7,13 +7,30 @@ public class ChargeDistribution {
 
 	private double chargeDensity;
 	private Surface[] distribution;
-	private Vector r0;
+	private Vector[][] field = new Vector[40][40];
+	private int divisions = 50;
 	
 	public ChargeDistribution(Surface[] distribution, double chargeDensity) {
 		this.distribution = distribution;
 		this.chargeDensity = chargeDensity;
 		
-		r0 = new Vector(0, -1);
+		Vector E = new Vector(0, 0);
+		for (int x = 0; x < 400; x += 10) {
+			for (int y = 0; y < 400; y += 10) {
+				for (int i = 0; i < distribution.length; i++) {	
+					double width = distribution[i].getSideLength();
+					for (int j = 0; j < divisions; j++) {
+						for (int k = 0; k < divisions; k++) {
+							Vector delta = new Vector((j * width) / divisions, (k * width) / divisions);
+							Vector r = Vector.add(new Vector(x, y), Vector.mult(-1, Vector.add(distribution[i], delta)));
+							if (r.getNorm() != 0)
+								E = Vector.add(E, Vector.mult(chargeDensity / (r.getNorm() * r.getNorm()), r.getUnitVector()));
+						}
+					}
+				}
+				field[x/10][y/10] = Vector.mult(5, E.getUnitVector());
+			}
+		}
 	}
 	
 	public Vector getElectricField(Charge Q) {
@@ -25,9 +42,9 @@ public class ChargeDistribution {
 		
 		for (int i = 0; i < distribution.length; i++) {	
 			width = distribution[i].getSideLength();
-			for (int j = 0; j < 20; j++) {
-				for (int k = 0; k < 20; k++) {
-					delta = new Vector((j * width)/20, (k * width) / 20);
+			for (int j = 0; j < divisions; j++) {
+				for (int k = 0; k < divisions; k++) {
+					delta = new Vector((j * width) / divisions, (k * width) / divisions);
 					r = Vector.add(Q.getPos(), Vector.mult(-1, Vector.add(distribution[i], delta)));
 					if (r.getNorm() != 0)
 						E = Vector.add(E, Vector.mult(chargeDensity / (r.getNorm() * r.getNorm()), r.getUnitVector()));
@@ -79,25 +96,10 @@ public class ChargeDistribution {
 	
 	public void paintFieldLines(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
-		Vector E = new Vector(0, 0);
-		for (int x = 0; x < 400; x += 7) {
-			for (int y = 0; y < 400; y += 7) {
-				for (int i = 0; i < distribution.length; i++) {	
-					double width = distribution[i].getSideLength();
-					for (int j = 0; j < 20; j++) {
-						for (int k = 0; k < 20; k++) {
-							Vector delta = new Vector((j * width)/20, (k * width) / 20);
-							Vector r = Vector.add(new Vector(x, y), Vector.mult(-1, Vector.add(distribution[i], delta)));
-							if (r.getNorm() != 0)
-								E = Vector.add(E, Vector.mult(chargeDensity / (r.getNorm() * r.getNorm()), r.getUnitVector()));
-						}
-					}
-				}
-				E = Vector.mult(5, E.getUnitVector());
-				double x0 = E.getX();
-				double y0 = E.getY();
-				g.drawLine((int) (x - x0/2), (int) (y - y0/2), (int) (x + x0/2), (int) (y + y0/2)); 
-			}
+		for (int i = 0; i < 40; i++) {
+			for (int j = 0; j < 40; j++)
+			if (field[i] != null)
+				g.drawLine((int)(i * 10 + field[i][j].getX()), (int)(j * 10 + field[i][j].getY()), (int)(i * 10 - field[i][j].getX()), (int)(j * 10 - field[i][j].getY()));
 		}
 	}
 }
