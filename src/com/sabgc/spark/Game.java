@@ -38,6 +38,7 @@ public class Game extends JPanel {
 					
 					// Q.applyForcePoint(qs);
 					Q.applyForceDistribution(sigma);
+					
 					Q.update(width, height);
 					
 					repaint();
@@ -63,6 +64,7 @@ public class Game extends JPanel {
 		super.paintComponent(g);
 		Q.paint(g);
 		sigma.paint(g);
+		sigma.paintFieldLines(g);
 		/*
 		q0.paint(g);
 		q1.paint(g);

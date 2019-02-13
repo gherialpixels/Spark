@@ -24,6 +24,15 @@ public class Vector extends Array {
 		return new Vector(a * uVect[0], a * uVect[1]);
 	}
 	
+	public boolean equals(Vector v) {
+		Vector sum = Vector.add(this, Vector.mult(-1, v));
+		if (sum.getX() == 0 && sum.getY() == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public Vector getUnitVector() {
 		double[] vect = getArray();
 		return new Vector(vect[0] / norm, vect[1] / norm);
