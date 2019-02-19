@@ -19,6 +19,16 @@ public class Force {
 		return F;
 	}
 	
+	public static Vector getGravityForce(Charge Q) {
+		Vector F = new Vector(0, 9.81);
+		return F;
+	}
+	
+	public static Vector getFriction(Charge Q, double a) {
+		Vector F = Vector.mult(-a, Q.getVel());
+		return F;
+	}
+	
 	public static void wallCollision(Charge q1, double width, double height) {
 		double[] vel = q1.getVel().getArray();
 		double[] pos = q1.getPos().getArray();

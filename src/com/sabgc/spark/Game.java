@@ -38,12 +38,14 @@ public class Game extends JPanel {
 					
 					// Q.applyForcePoint(qs);
 					Q.applyForceDistribution(sigma);
+					Q.applyGravity();
+					// Q.applyFriction(8); needs some tweaking, I think the force is not being calculated in real time.
 					Q.update(width, height);
 					
 					repaint();
 					
 					try {
-						Thread.sleep(15);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {}	
 					
 					frames++;
@@ -63,7 +65,6 @@ public class Game extends JPanel {
 		super.paintComponent(g);
 		Q.paint(g);
 		sigma.paint(g);
-		sigma.paintFieldLines(g);
 		/*
 		q0.paint(g);
 		q1.paint(g);

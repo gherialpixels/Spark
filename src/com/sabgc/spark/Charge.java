@@ -46,7 +46,15 @@ public class Charge {
 	
 	public void applyForceDistribution(ChargeDistribution sigma) {
 		Vector F = Force.getElectroStaticForceDistribution(this, sigma);
-		acc = Vector.mult(1/mass, F);
+		acc = Vector.add(acc, Vector.mult(1/mass, F));
+	}
+	
+	public void applyGravity() {
+		acc = Vector.add(acc, Vector.mult(1/mass, Force.getGravityForce(this)));
+	}
+	
+	public void applyFriction(double a) {
+		acc = Vector.add(acc, Vector.mult(1/mass, Force.getFriction(this, a)));
 	}
 	
 	public void update(double width, double height) {
